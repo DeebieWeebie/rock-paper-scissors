@@ -7,7 +7,6 @@ let userMessage = "";
 
 function getComputerChoice() {
     randomNumber=Math.floor(Math.random() * 100) +1;
-    console.log(randomNumber);
     if (randomNumber <= 33) {
         return computerChoice = "rock";
     } else if (randomNumber >= 66) {
@@ -23,8 +22,6 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-    console.log(computerChoice);
-    console.log(humanChoice);
     if (humanChoice === "rock" && computerChoice === "scissors") {
         humanScore = humanScore + 1;
         return userMessage = "You win! Rock beats scissors!";
@@ -48,28 +45,21 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-const computerSelection = getComputerChoice();
-const humanSelection = getHumanChoice();
-
-playRound(humanSelection, computerSelection);
-
-//function playGame() {
-//    console.log(userMessage)
-//}
-
 playGame();
 
 function playGame() {
-    console.log(userMessage);
-    console.log(humanScore);
-    console.log(computerScore);
     const numberOfGamesToPlay = 5;
-//    console.log(computerChoice);
-//    console.log(humanChoice);
 
     for (let i = 0; i < numberOfGamesToPlay; i++) { 
         console.log(`StartingGame ${i + 1}`);
-    //   playRound ();
+        let humanSelection = getHumanChoice();
+        let computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+        console.log("You chose:", humanChoice);
+        console.log("The computer chose:", computerChoice);
+        console.log(userMessage);
+        console.log("Your score is:", humanScore);
+        console.log("The computer score is:", computerScore);
         console.log (`Game ${i + 1} is finished.`)
     }
      
@@ -84,5 +74,3 @@ function playGame() {
     }
     console.log(scoreMessage);
 }  
-
-// playGame();
