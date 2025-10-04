@@ -45,32 +45,34 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-playGame();
+btn.addEventListener("click", humanChoice);
 
-function playGame() {
-    const numberOfGamesToPlay = 5;
+// playGame();
 
-    for (let i = 0; i < numberOfGamesToPlay; i++) { 
-        console.log(`StartingGame ${i + 1}`);
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        console.log("You chose:", humanChoice);
-        console.log("The computer chose:", computerChoice);
-        console.log(userMessage);
-        console.log("Your score is:", humanScore);
-        console.log("The computer score is:", computerScore);
-        console.log (`Game ${i + 1} is finished.`)
-    }
+// function playGame() {
+    // const numberOfGamesToPlay = 5;
+
+    // for (let i = 0; i < numberOfGamesToPlay; i++) { 
+        // console.log(`StartingGame ${i + 1}`);
+        // let humanSelection = getHumanChoice();
+        // let computerSelection = getComputerChoice();
+        // playRound(humanSelection, computerSelection);
+        // console.log("You chose:", humanChoice);
+        // console.log("The computer chose:", computerChoice);
+        // console.log(userMessage);
+        // console.log("Your score is:", humanScore);
+        // console.log("The computer score is:", computerScore);
+        // console.log (`Game ${i + 1} is finished.`)
+    // }
      
-    scoreMessage = `The score is the computer ${computerScore} vs you: ${humanScore}`;
+    // scoreMessage = `The score is the computer ${computerScore} vs you: ${humanScore}`;
 
-    if (i = numberOfGamesToPlay  && computerScore > humanScore) {
-        scoreMessage = `The winner is the computer!  The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
-    } else if (i = numberOfGamesToPlay && humanScore > computerScore) {
-        scoreMessage = `The winner is you! Your final score is: ${humanScore} and the computer's final score is: ${computerScore}`;
-    } else {
-        scoreMessage = "Score: It's a tie!  Play 5 rounds again!"
-    }
-    console.log(scoreMessage);
-}  
+    // if (i = numberOfGamesToPlay  && computerScore > humanScore) {
+    //     scoreMessage = `The winner is the computer!  The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
+    // } else if (i = numberOfGamesToPlay && humanScore > computerScore) {
+    //     scoreMessage = `The winner is you! Your final score is: ${humanScore} and the computer's final score is: ${computerScore}`;
+    // } else {
+    //     scoreMessage = "Score: It's a tie!  Play 5 rounds again!"
+    // }
+    // console.log(scoreMessage);
+// }  
