@@ -1,70 +1,75 @@
 let humanScore = 0;
 let computerScore = 0;
-let computerChoice = "";
-let humanChoice = "";
-let input = ""
-let userMessage = "";
+const messageContainer = document.getElementById('messageContainer');
 
 function getComputerChoice() {
     randomNumber=Math.floor(Math.random() * 100) +1;
     if (randomNumber <= 33) {
-        return computerChoice = "rock";
+        return "rock";
     } else if (randomNumber >= 66) {
-        return computerChoice = "paper";
+        return "paper";
     } else {
-        return computerChoice = "scissors";
+        return "scissors";
     }
+}  
+
+function updateMessage(userMessage) {
+    messageContainer.textContent = userMessage;
+    console.log("Updating message container with:", userMessage);
 }
 
-function getHumanChoice() {
-    input = prompt("Please enter your choice /(either rock, paper, or scissors/): ");
-    return humanChoice = input.toLowerCase(); 
-}
+function getChoices() {
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            const humanChoice = event.target.textContent.toLowerCase();
+            const computerChoice = getComputerChoice();
+            console.log("Human choice: ", humanChoice);
+            console.log("Computer choice: ", computerChoice);
+            playRound(humanChoice, computerChoice);
+        });
+    });
+}     
 
 function playRound(humanChoice, computerChoice) {
-    if (humanChoice === "rock" && computerChoice === "scissors") {
-        humanScore = humanScore + 1;
-        return userMessage = "You win! Rock beats scissors!";
-    } else if (humanChoice === "paper" && computerChoice === "rock") {
-        humanScore = humanScore + 1;
-        return userMessage = "You win! Paper beats rock!";
-    } else if (humanChoice === "scissors" && computerChoice === "paper") {
-        humanScore = humanScore + 1;
-        return userMessage = "You win! Scissors beats paper!";
-    } else if (humanChoice === "rock" && computerChoice === "paper") {
-        computerScore = computerScore + 1;
-        return userMessage = "You lose! Paper beats rock!";
-    } else if (humanChoice === "paper" && computerChoice === "scissors") {
-        computerScore = computerScore + 1;
-        return userMessage = "You lose! Scissors beats paper!";
-    } else if (humanChoice === "scissors" && computerChoice === "rock") {
-        computerScore = computerScore + 1;
-        return userMessage = "You lose! Rock beats scissors!";
+    let userMessage;
+    if (humanChoice === computerChoice) {
+        userMessage = "It's a tie!  Winner is the first to have 5 points.  Play again!";
+    } else if (
+        (humanChoice === "rock" && computerChoice === "scissors") || 
+        (humanChoice === "paper" && computerChoice === "rock")||
+        (humanChoice === "scissors" && computerChoice === "paper"))
+    {
+        humanScore++;
+        userMessage = `You win! ${humanChoice} beats ${computerChoice}!`;
     } else {
-        return userMessage = "It's a tie!  We are playing best of 5.  Play again!"
+        computerScore++;
+        userMessage = `You lose! ${computerChoice} beats ${humanChoice}!`;
     }
+    updateMessage(userMessage);
+    console.log(`Human score: ${humanScore}, Computer score: ${computerScore}`);
 }
 
-btn.addEventListener("click", humanChoice);
+updateMessage("Make a choice to start the game!");
+getChoices();
 
-// playGame();
-
+//rework this to have humanScore <=5 && computerScore <= 5, playgame....do while?
 // function playGame() {
-    // const numberOfGamesToPlay = 5;
+//     const numberOfGamesToPlay = 5;
 
-    // for (let i = 0; i < numberOfGamesToPlay; i++) { 
-        // console.log(`StartingGame ${i + 1}`);
-        // let humanSelection = getHumanChoice();
-        // let computerSelection = getComputerChoice();
-        // playRound(humanSelection, computerSelection);
-        // console.log("You chose:", humanChoice);
-        // console.log("The computer chose:", computerChoice);
-        // console.log(userMessage);
-        // console.log("Your score is:", humanScore);
-        // console.log("The computer score is:", computerScore);
-        // console.log (`Game ${i + 1} is finished.`)
-    // }
-     
+//     for (let i = 0; i < numberOfGamesToPlay; i++) { 
+//         // console.log(`StartingGame ${i + 1}`);
+//         let humanSelection = getHumanChoice();
+//         let computerSelection = getComputerChoice();
+//         playRound(humanSelection, computerSelection);
+//         console.log("You chose:", humanChoice);
+//         console.log("The computer chose:", computerChoice);
+//         console.log(userMessage);
+//         console.log("Your score is:", humanScore);
+//         console.log("The computer score is:", computerScore);
+//         // console.log (`Game ${i + 1} is finished.`)
+//     }
+// }    
     // scoreMessage = `The score is the computer ${computerScore} vs you: ${humanScore}`;
 
     // if (i = numberOfGamesToPlay  && computerScore > humanScore) {
