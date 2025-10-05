@@ -42,7 +42,7 @@ function getChoices() {
         });
     });
 
-}     
+}    
 
 function playRound(humanChoice, computerChoice) {
     
