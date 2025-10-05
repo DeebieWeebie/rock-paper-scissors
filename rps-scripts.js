@@ -26,7 +26,7 @@ function updateResultMessage(resultMessage) {
     console.log("Updating message container with:", resultMessage);
 }
 
-function updateScore() {
+function updateScore(scoreMessage) {
     scoreContainer.textContent = scoreMessage;
     console.log("Updating score message with:", scoreMessage);
 }
@@ -41,13 +41,12 @@ function getChoices() {
             playRound(humanChoice, computerChoice);
         });
     });
-
 }    
 
 function playRound(humanChoice, computerChoice) {
-    
+
     if (humanChoice === computerChoice) {
-        resultMessage = "It's a tie! Play again!";
+            resultMessage = "It's a tie! Play again!";
     } else if (
         (humanChoice === "rock" && computerChoice === "scissors") || 
         (humanChoice === "paper" && computerChoice === "rock")||
@@ -59,31 +58,25 @@ function playRound(humanChoice, computerChoice) {
         computerScore++;
         resultMessage = `You lose! ${computerChoice} beats ${humanChoice}!`;
     }
-    return updateResultMessage(resultMessage);
-    // updateScore();
+    updateResultMessage(resultMessage);
+    getScore();
 }
 
 getChoices();
 
 
-// `Human score: ${humanScore}, Computer score: ${computerScore}`
-//rework this to have humanScore <=5 && computerScore <= 5, playgame....do while?
-// function keepScore() {
-//     if (humanScore <= 5 || computerScore <= 5)
-//       
-//         console.log("Your score is:", humanScore);
-//         console.log("The computer score is:", computerScore);
-//         // console.log (`Game ${i + 1} is finished.`)
-//     }
-// }    
-    // scoreMessage = `The score is the computer ${computerScore} vs you: ${humanScore}`;
-
-    // if (i = numberOfGamesToPlay  && computerScore > humanScore) {
-    //     scoreMessage = `The winner is the computer!  The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
-    // } else if (i = numberOfGamesToPlay && humanScore > computerScore) {
-    //     scoreMessage = `The winner is you! Your final score is: ${humanScore} and the computer's final score is: ${computerScore}`;
-    // } else {
-    //     scoreMessage = "Score: It's a tie!  Play 5 rounds again!"
-    // }
-    // console.log(scoreMessage);
-// }  
+// This all runs, but now it won't stop Figure out how to get it to do winner/loser
+function getScore() {
+    if (humanScore === computerScore) {
+        scoreMessage = `The score is human score: ${humanScore} & computer score: ${computerScore}`;
+    } else if (humanScore > computerScore) {
+        scoreMessage = `You are in the lead! The score is: ${humanScore} and the computer's score is: ${computerScore}`;
+    } else if (humanScore < computerScore) { 
+        scoreMessage = `You are behind! The score is: ${humanScore} and the computer's score is: ${computerScore}`;
+    } else if (humanScore === 5 && computerScore < 5) {
+        scoreMessage = `The winner is you! Your final score is: ${humanScore} and the computer's final score is: ${computerScore}`;
+    } else if (computerScore === 5 && humanScore < 5) {
+        scoreMessage = `The winner is the computer!  The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
+    }
+    updateScore(scoreMessage);
+}
