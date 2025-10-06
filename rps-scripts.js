@@ -1,5 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
+const winningScore = 5;
 
 const choiceContainer = document.getElementById("choiceContainer");
 const messageContainer = document.getElementById("messageContainer");
@@ -37,8 +38,9 @@ function getChoices() {
         button.addEventListener("click", (event) => {
             const humanChoice = event.target.textContent.toLowerCase();
             const computerChoice = getComputerChoice();
-            updateChoiceMessage(`You chose ${humanChoice} and the computer chose ${computerChoice}!`);
+            updateChoiceMessage(`You chose ${humanChoice} and the computer chose ${computerChoice}.`);
             playRound(humanChoice, computerChoice);
+
         });
     });
 }    
@@ -53,10 +55,10 @@ function playRound(humanChoice, computerChoice) {
         (humanChoice === "scissors" && computerChoice === "paper"))
     {
         humanScore++;
-        resultMessage = `You win! ${humanChoice} beats ${computerChoice}!`;
+        resultMessage = `You win the round because ${humanChoice} beats ${computerChoice}!`;
     } else {
         computerScore++;
-        resultMessage = `You lose! ${computerChoice} beats ${humanChoice}!`;
+        resultMessage = `You lose the round because ${computerChoice} beats ${humanChoice}!`;
     }
     updateResultMessage(resultMessage);
     getScore();
@@ -69,14 +71,28 @@ getChoices();
 function getScore() {
     if (humanScore === computerScore) {
         scoreMessage = `The score is human score: ${humanScore} & computer score: ${computerScore}`;
-    } else if (humanScore > computerScore) {
+    } else if (humanScore > computerScore && humanScore !== winningScore) {
         scoreMessage = `You are in the lead! The score is: ${humanScore} and the computer's score is: ${computerScore}`;
-    } else if (humanScore < computerScore) { 
+    } else if (humanScore < computerScore && computerScore !== winningScore) { 
         scoreMessage = `You are behind! The score is: ${humanScore} and the computer's score is: ${computerScore}`;
-    } else if (humanScore === 5 && computerScore < 5) {
-        scoreMessage = `The winner is you! Your final score is: ${humanScore} and the computer's final score is: ${computerScore}`;
-    } else if (computerScore === 5 && humanScore < 5) {
-        scoreMessage = `The winner is the computer!  The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
+    } else if (humanScore === winningScore) {
+        scoreMessage = `The game winner is you! Your final score is: ${humanScore} and the computer's final score is: ${computerScore}`;
+        
+    } else if (computerScore === winningScore) {
+        scoreMessage = `The game winner is the computer!  The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
     }
     updateScore(scoreMessage);
+    checkGameEnd();
+}
+
+function checkGameEnd() {
+    if (humanScore !== winningScore || computerScore !== winningScore) {
+        return false;
+    } else {
+        humanScore = 0;
+        computerScore = 0;
+        choiceContainer.textContent = "Make a choice to start the game!";
+        messageContainer.textContent = "Please press the button of your choice (either rock, paper, or scissors):";
+        scoreContainer.textContent = "";
+    }
 }
