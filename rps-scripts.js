@@ -2,9 +2,9 @@ let humanScore = 0;
 let computerScore = 0;
 const winningScore = 5;
 
-const choiceContainer = document.getElementById("choiceContainer");
-const messageContainer = document.getElementById("messageContainer");
-const scoreContainer = document.getElementById("scoreContainer");
+const choiceContainer = document.getElementById("choice-container");
+const messageContainer = document.getElementById("message-container");
+const scoreContainer = document.getElementById("score-container");
 
 function getComputerChoice() {
     randomNumber=Math.floor(Math.random() * 100) +1;
