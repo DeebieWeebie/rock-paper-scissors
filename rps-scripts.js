@@ -27,7 +27,7 @@ function updateResultMessage(resultMessage) {
     console.log("Updating message container with:", resultMessage);
 }
 
-function updateScore(scoreMessage) {
+function updateScoreMessage(scoreMessage) {
     scoreContainer.textContent = scoreMessage;
     console.log("Updating score message with:", scoreMessage);
 }
@@ -40,13 +40,11 @@ function getChoices() {
             const computerChoice = getComputerChoice();
             updateChoiceMessage(`You chose ${humanChoice} and the computer chose ${computerChoice}.`);
             playRound(humanChoice, computerChoice);
-
         });
     });
 }    
 
 function playRound(humanChoice, computerChoice) {
-
     if (humanChoice === computerChoice) {
             resultMessage = "It's a tie! Play again!";
     } else if (
@@ -66,33 +64,33 @@ function playRound(humanChoice, computerChoice) {
 
 getChoices();
 
-
-// This all runs, but now it won't stop Figure out how to get it to do winner/loser
 function getScore() {
     if (humanScore === computerScore) {
-        scoreMessage = `The score is human score: ${humanScore} & computer score: ${computerScore}`;
+        scoreMessage = `The human score is: ${humanScore} & the computer score is: ${computerScore}`;
     } else if (humanScore > computerScore && humanScore !== winningScore) {
-        scoreMessage = `You are in the lead! The score is: ${humanScore} and the computer's score is: ${computerScore}`;
+        scoreMessage = `You are in the lead! The human score is: ${humanScore} and the computer's score is: ${computerScore}`;
     } else if (humanScore < computerScore && computerScore !== winningScore) { 
-        scoreMessage = `You are behind! The score is: ${humanScore} and the computer's score is: ${computerScore}`;
+        scoreMessage = `You are behind! The human score is: ${humanScore} and the computer's score is: ${computerScore}`;
     } else if (humanScore === winningScore) {
         scoreMessage = `The game winner is you! Your final score is: ${humanScore} and the computer's final score is: ${computerScore}`;
-        
     } else if (computerScore === winningScore) {
-        scoreMessage = `The game winner is the computer!  The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
+        scoreMessage = `The game winner is the computer! The computer's final score is: ${computerScore} and your final score is: ${humanScore}`;
     }
-    updateScore(scoreMessage);
-    checkGameEnd();
+    updateScoreMessage(scoreMessage);
+    checkGameEnd(humanScore, computerScore);
 }
 
 function checkGameEnd() {
-    if (humanScore !== winningScore || computerScore !== winningScore) {
-        return false;
-    } else {
+    if (humanScore === winningScore || computerScore === winningScore) {
         humanScore = 0;
         computerScore = 0;
-        choiceContainer.textContent = "Make a choice to start the game!";
-        messageContainer.textContent = "Please press the button of your choice (either rock, paper, or scissors):";
-        scoreContainer.textContent = "";
+        updateChoiceMessage("");
+        updateResultMessage("");
+        const playAgainMessage = document.createElement("p");
+        playAgainMessage.textContent = "If you want to play another game, simply press a choice again.";
+        scoreContainer.appendChild(playAgainMessage);
+
+    } else {
+        return false;
     }
 }
